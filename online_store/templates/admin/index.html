@@ -1,0 +1,14 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+{% if current_user.is_authenticated %}
+<div >
+  <p>Добро пожаловать.</p>
+    <a class="btn" href="{{ url_for('logout') }}">{{ current_user.username }} - Выйти</a>
+</div>
+{% else %}
+<div >
+    <a class="btn" href="{{ url_for('login') }}"> - Нет доступа. Войдите под администратором.</a>
+</div>
+{% endif %}
+{% endblock %}

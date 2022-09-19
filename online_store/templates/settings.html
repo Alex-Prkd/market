@@ -1,0 +1,57 @@
+{% extends 'basic.html' %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <title>Настройки</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    /* Sticky footer styles
+    -------------------------------------------------- */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      margin-bottom: 60px; /* Margin bottom by footer height */
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 60px; /* Set the fixed height of the footer here */
+      line-height: 60px; /* Vertically center the text there */
+    }
+    .navbar {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<main class="container">
+<h1 class="h3 my-5">Настройки</h1>
+              {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+  <form method="post" action="{{ url_for('settings', id=user_active.user_id) }}">
+    <section class="row">
+      <div class="col-10 col-lg-3">
+          <div class="list-group-item my-3">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="h6 my-3 btn btn" name="value" value="email">Изменить почту </button>
+          </div>
+          <div class="list-group-item my-3">
+            <button class="h6 my-3 btn btn" name="value" value="password">Изменить пароль </button>
+          </div>
+      </div>
+      </section>
+</form>
+ </main>
+{% endblock %}

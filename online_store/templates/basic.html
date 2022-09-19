@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="container mt-3">
+    <nav class="py-1 navbar navbar-dark bg-dark">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <a class=" h5 my-2 text-white " href="{{ url_for('index') }}">Главная</a>
+      </ul>
+      {% if header != 0 %}
+          <a class="my-2 text-white" href="{{ url_for('cart') }}">Корзина {% if header != None %}({{ header }} руб.) {%endif %}</a>
+      {% else %}
+        <a class="my-2 text-white" href="{{ url_for('cart') }}">Корзина</a>
+      {% endif %}
+        {% if user_active == None %}
+             <a href="{{ url_for('login') }}" class="btn btn-warning btn-sm ml-4">Войти</a>
+        {% else %}
+            <a class="my-2 mx-2 text-white" href="{{ url_for('account', id=user_active.user_id) }}">Личный кибинет</a>
+            <a class="my-2 text-white" href="{{ url_for('settings', id=user_active.user_id) }}">Настройки</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-light btn-sm ml-4">Выйти</a>
+        {% endif %}
+
+    </nav>
+  </header>
+
+{% block body %}{% endblock %}
+
+ <footer class="footer">
+    <nav class="container navbar navbar-light bg-light">
+      <a class="text-muted" href="https://github.com/Alex-Prkd">Project author 2022</a>
+    </nav>
+  </footer>
+</body>
+</html>

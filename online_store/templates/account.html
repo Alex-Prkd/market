@@ -1,0 +1,68 @@
+{% extends 'basic.html' %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <title>Профиль</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    /* Sticky footer styles
+    -------------------------------------------------- */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      margin-bottom: 60px; /* Margin bottom by footer height */
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 60px; /* Set the fixed height of the footer here */
+      line-height: 60px; /* Vertically center the text there */
+    }
+    .navbar {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+  <main class="container">
+    <section class="row">
+      <div class="col-12 col-lg-8">
+        <h1 class="h3 my-5">Личный кабинет. <br>{% if num_active_order != 0 %}Активные заказы: {{ num_active_order }}. {% else %} Активных заказов нет.{%endif %}</h1>
+        {% for order, list_dish in orders.items() %}
+        <div class="card">
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-7 col-lg-9">
+                  <span class="h5 font-weight-bold">{{ order.datetime }}</span>
+                  <span class="h5">- {{ order.amount }} P</span>
+                </div>
+
+              </div>
+            </li>
+            <div class="card-body">
+              <div class="row">
+                {% for dish in list_dish %}
+                  {% for meal, quantity in dict(dish).items() %}
+                  <p class="col-4 text-muted">{{ meal.title }} </p>
+                  <p class="col-2 text-muted"> {{ quantity }}</p>
+                  <p class="col-6 text-muted"> {{ meal.price }} </p>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
+          </ul>
+        </div>
+        <div class="mt-4 card">
+        </div>
+          {% endfor %}
+    </section>
+  </main>
+
+{% endblock %}
